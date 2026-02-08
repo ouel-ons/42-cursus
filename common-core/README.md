@@ -1,80 +1,62 @@
 <!-- ================================================= -->
-<!--  Common Core — 42 (1337) | Ouail (ouelnyx)         -->
+<!--  42 Common Core — Ouail (ouelnyx)                  -->
+<!--  Aesthetic · Futuristic · Engineering-focused     -->
 <!-- ================================================= -->
 
 <p align="center">
-  <img src="https://capsule-render.vercel.app/api?type=waving&color=062B6F&height=160&section=header&text=Common%20Core&fontSize=50&fontColor=ffffff&animation=fadeIn" />
+  <img src="https://capsule-render.vercel.app/api?type=transparent&height=140&text=COMMON%20CORE&fontSize=56&fontColor=6EA8FF&animation=fadeIn" />
 </p>
 
 <p align="center">
-  <img src="https://readme-typing-svg.demolab.com?font=JetBrains+Mono&size=22&duration=2600&pause=900&color=062B6F&center=true&vCenter=true&width=1000&lines=1337+%7C+42+Network+Common+Core;Systems+Engineering+%E2%86%92+Python+%E2%86%92+AI+Foundations;Low-level+Thinking+Across+Abstractions;Engineering+Discipline+and+Autonomy" />
+  <img src="https://readme-typing-svg.demolab.com?font=JetBrains+Mono&size=20&duration=2800&pause=900&color=6EA8FF&center=true&vCenter=true&width=1000&lines=1337+%7C+42+Network;Systems+%E2%86%92+Python+%E2%86%92+AI;Engineering+Across+Abstraction+Layers" />
 </p>
 
 <p align="center">
-  <img src="https://img.shields.io/badge/42%20Network-1337-062B6F?style=flat-square&logo=42&logoColor=white" />
-  <img src="https://img.shields.io/badge/Track-Common%20Core-062B6F?style=flat-square" />
-  <img src="https://img.shields.io/badge/Focus-Systems%20%2B%20Python%20%2B%20AI-062B6F?style=flat-square" />
-  <img src="https://img.shields.io/badge/Environment-Linux%20%2F%20Containers-062B6F?style=flat-square&logo=linux&logoColor=white" />
+  <img src="https://img.shields.io/badge/42%20Network-1337-0B1E3B?style=flat&logo=42&logoColor=6EA8FF" />
+  <img src="https://img.shields.io/badge/Common%20Core-Active-0B1E3B?style=flat&logoColor=6EA8FF" />
+  <img src="https://img.shields.io/badge/Linux-First-0B1E3B?style=flat&logo=linux&logoColor=6EA8FF" />
+  <img src="https://img.shields.io/badge/Systems%20Mindset-Core-0B1E3B?style=flat&logoColor=6EA8FF" />
 </p>
 
 <p align="center">
-  <img height="20" src="https://skillicons.dev/icons?i=c,python,linux,bash,git,docker&theme=dark" />
+  <img height="22" src="https://skillicons.dev/icons?i=c,python,bash,linux,git,docker&theme=dark" />
 </p>
 
 ---
 
-## 📌 What is the Common Core (new curriculum)
+## ◼ Overview
 
-The **Common Core** at **1337 (42 Network)** is no longer limited to low-level C projects.  
-It has evolved into a **multi-layered engineering curriculum** designed to produce
-autonomous engineers who can work across:
+The **Common Core** at **1337 (42 Network)** is a **modern engineering curriculum**
+designed to produce autonomous software engineers capable of working across
+**systems, higher-level programming, infrastructure, and AI-oriented software**.
 
-- **low-level systems**
-- **higher-level programming (Python)**
-- **networking and infrastructure**
-- **modern AI-oriented systems**
-- **real-world engineering constraints**
+This directory documents my progression through the curriculum and highlights
+the **skills, engineering habits, and technical depth** developed across projects.
 
-This repository documents my progression through this curriculum and highlights
-the **skills, engineering habits, and mental models** developed along the way.
+The focus is not just *what* is built — but **how and why**.
 
 ---
 
-## 🎯 Educational philosophy
+## ◼ Engineering philosophy
 
 The Common Core emphasizes:
 
-- learning **how to learn** independently
-- understanding systems from **first principles**
-- moving fluently across abstraction levels
-- reasoning about **performance, correctness, and security**
-- building mental models, not memorizing APIs
+- learning from **first principles**
+- strong **systems intuition**
+- navigating multiple abstraction layers
+- disciplined debugging and testing
+- performance, correctness, and security awareness
+- adaptability to new technologies (Python, AI, infra)
 
-Projects are evaluated through:
-- peer review
+Projects are completed under:
 - strict constraints
-- real technical problem solving
-- minimal hand-holding
+- peer evaluation
+- minimal guidance
+- real engineering trade-offs
 
 ---
 
-## 🧠 Skills developed (high-level)
-
-### 🧩 Core engineering foundations
-- problem decomposition
-- reading and implementing specifications
-- debugging and testing under constraints
-- clean code and maintainability
-- performance and complexity reasoning
-
-### 🧠 Systems mindset
-- understanding how software behaves at runtime
-- reasoning about processes, memory, and resources
-- thinking in terms of failure modes and boundaries
-
----
-
-## 🗂 Project structure
+## ◼ Curriculum structure
 
 ```text
 common-core/

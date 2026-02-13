@@ -1,132 +1,123 @@
+#!/usr/bin/env python3
 from __future__ import annotations
 
 from abc import ABC, abstractmethod
-from typing import Any
+from typing import Any, List
 
 
 class DataProcessor(ABC):
-    """Abstract base class defining a common processing interface."""
-
     @abstractmethod
     def process(self, data: Any) -> str:
-        """Process data and return a result string."""
         raise NotImplementedError
 
     @abstractmethod
     def validate(self, data: Any) -> bool:
-        """Return True if data is valid for this processor."""
         raise NotImplementedError
 
     def format_output(self, result: str) -> str:
-        """Default output formatting (subclasses may override)."""
         return f"Output: {result}"
+
+    @abstractmethod
+    def _validation_message(self) -> str:
+        raise NotImplementedError
+
+    def run(self, data: Any) -> str:
+        # These two lines must appear exactly like the subject example.
+        print(f"Processing data: {data}")
+        try:
+            if not self.validate(data):
+                raise ValueError("Invalid data for this processor")
+            print(f"Validation: {self._validation_message()}")
+            result = self.process(data)
+            return self.format_output(result)
+        except Exception as exc:
+            # Required error handling (not triggered in the example run)
+            return self.format_output(f"Error: {exc}")
 
 
 class NumericProcessor(DataProcessor):
-    """Processor specialized for numeric sequences."""
-
     def validate(self, data: Any) -> bool:
-        if not isinstance(data, (list, tuple)):
-            return False
-        if not data:
+        if not isinstance(data, list) or len(data) == 0:
             return False
         return all(isinstance(x, (int, float)) for x in data)
 
     def process(self, data: Any) -> str:
-        if not self.validate(data):
-            raise ValueError("NumericProcessor expects a non-empty list/tuple "
-                             "of int/float values.")
-        values = list(data)
-        total = float(sum(values))
-        avg = total / len(values)
-        return (
-            f"Processed {len(values)} numeric values, "
-            f"sum={int(total) if total.is_integer() else total}, "
-            f"avg={avg}"
-        )
+        nums: List[float] = [float(x) for x in data]  # type: ignore[arg-type]
+        total = sum(nums)
+        avg = total / len(nums)
+        return f"Processed {len(nums)} numeric values, sum={int(total)}, avg={avg:.1f}"
+
+    def _validation_message(self) -> str:
+        return "Numeric data verified"
 
 
 class TextProcessor(DataProcessor):
-    """Processor specialized for text."""
-
     def validate(self, data: Any) -> bool:
         return isinstance(data, str)
 
     def process(self, data: Any) -> str:
-        if not self.validate(data):
-            raise ValueError("TextProcessor expects a string.")
-        text = data.strip()
-        words = [w for w in text.split() if w]
-        return (
-            f"Processed text: {len(text)} characters, {len(words)} words"
-        )
+        text: str = data  # type: ignore[assignment]
+        char_count = len(text)
+        word_count = len(text.split())
+        return f"Processed text: {char_count} characters, {word_count} words"
+
+    def _validation_message(self) -> str:
+        return "Text data verified"
 
 
 class LogProcessor(DataProcessor):
-    """Processor specialized for log entries formatted like 'LEVEL: message'."""
-
     def validate(self, data: Any) -> bool:
-        if not isinstance(data, str):
-            return False
-        return ":" in data
+        return isinstance(data, str) and (data.startswith("ERROR:") or data.startswith("INFO:"))
 
     def process(self, data: Any) -> str:
-        if not self.validate(data):
-            raise ValueError("LogProcessor expects a string containing ':'.")
-        level_raw, message_raw = data.split(":", 1)
-        level = level_raw.strip().upper()
-        message = message_raw.strip()
-        if not message:
-            raise ValueError("LogProcessor log message cannot be empty.")
-        return f"{level} level detected: {message}"
+        entry: str = data  # type: ignore[assignment]
+        level, _, msg = entry.partition(":")
+        msg = msg.strip()
+        if level == "ERROR":
+            return f"[ALERT] ERROR level detected: {msg}"
+        return f"[INFO] INFO level detected: {msg}"
 
-    def format_output(self, result: str) -> str:
-        # Specialized formatting to highlight alerts.
-        upper = result.upper()
-        prefix = "[INFO]"
-        if upper.startswith("ERROR"):
-            prefix = "[ALERT]"
-        elif upper.startswith("WARN"):
-            prefix = "[WARN]"
-        return f"Output: {prefix} {result}"
+    def _validation_message(self) -> str:
+        return "Log entry verified"
 
 
-def _demo() -> None:
+def main() -> None:
     print("=== CODE NEXUS - DATA PROCESSOR FOUNDATION ===")
 
-    processors: list[DataProcessor] = [
-        NumericProcessor(),
-        TextProcessor(),
-        LogProcessor(),
-    ]
+    print("Initializing Numeric Processor...")
+    out1 = NumericProcessor().run([1, 2, 3, 4, 5])
+    print(out1)
 
-    samples: list[Any] = [
-        [1, 2, 3, 4, 5],
-        "Hello Nexus World",
-        "ERROR: Connection timeout",
-    ]
+    print("Initializing Text Processor...")
+    out2 = TextProcessor().run("Hello Nexus World")
+    print(out2)
 
-    for proc, sample in zip(processors, samples, strict=True):
-        print(f"\nInitializing {proc.__class__.__name__}...")
-        print(f"Processing data: {sample!r}")
-        try:
-            if proc.validate(sample):
-                print("Validation: Data verified")
-            else:
-                print("Validation: Failed")
-            result = proc.process(sample)
-            print(proc.format_output(result))
-        except ValueError as exc:
-            print(f"Output: [ERROR] {exc}")
+    print("Initializing Log Processor...")
+    out3 = LogProcessor().run("ERROR: Connection timeout")
+    print(out3)
 
-    print("\n=== Polymorphic Processing Demo ===")
+    print("=== Polymorphic Processing Demo ===")
+    print()  # blank line exactly like the example
+
     print("Processing multiple data types through same interface...")
-    for idx, (proc, sample) in enumerate(zip(processors, samples, strict=True), 1):
+
+    processors: list[DataProcessor] = [NumericProcessor(), TextProcessor(), LogProcessor()]
+    data_items: list[Any] = [[1, 2, 3], "Hello Nexus", "INFO: System ready"]
+
+    results: list[str] = []
+    for proc, item in zip(processors, data_items, strict=True):
         try:
-            print(f"Result {idx}: {proc.process(sample)}")
-        except ValueError as exc:
-            print(f"Result {idx}: [ERROR] {exc}")
+            if not proc.validate(item):
+                raise ValueError("Invalid data")
+            results.append(proc.process(item))
+        except Exception as exc:
+            results.append(f"Error: {exc}")
+
+    print(f"Result 1: {results[0]}")
+    print(f"Result 2: {results[1]}")
+    print(f"Result 3: {results[2]}")
+    print("Foundation systems online. Nexus ready for advanced streams.")
 
 
 if __name__ == "__main__":
-    _demo()
+    main()

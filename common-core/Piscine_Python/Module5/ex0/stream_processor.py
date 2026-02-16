@@ -22,7 +22,6 @@ class DataProcessor(ABC):
         raise NotImplementedError
 
     def run(self, data: Any) -> str:
-        # These two lines must appear exactly like the subject example.
         print(f"Processing data: {data}")
         try:
             if not self.validate(data):

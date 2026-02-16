@@ -22,7 +22,7 @@ class DataStream(ABC):
         raise NotImplementedError
 
     def filter_data(self, data_batch: List[Any], criteria: Optional[str] = None) -> List[Any]:
-        # Default: no filtering
+        # Default: no filtering 
         _ = criteria
         return data_batch
 
@@ -216,7 +216,6 @@ def main() -> None:
     # We will NOT print the internal “Processing ... batch” lines here, because the example doesn’t.
     # So we compute counts directly but keep polymorphic calls for the “can handle any subtype” idea.
     try:
-        # Batch processing (polymorphic)
         _ = demo_sensor.process_batch(sensor_batch)  # prints "Processing sensor batch..." -> suppress by not calling
     except Exception:
         pass

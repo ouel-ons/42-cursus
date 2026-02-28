@@ -1,5 +1,6 @@
-# ex02/.gitignore
+# Ignore real environment configuration
 .env
+
+# Python cache files
 __pycache__/
 *.pyc
-*.png

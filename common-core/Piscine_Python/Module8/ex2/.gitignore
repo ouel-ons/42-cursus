@@ -1,6 +1,6 @@
 # Ignore real environment configuration
 .env
-
+venv/
 # Python cache files
 __pycache__/
 *.pyc

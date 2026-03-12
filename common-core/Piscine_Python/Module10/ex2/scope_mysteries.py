@@ -17,7 +17,7 @@ def mage_counter() -> Callable:
 
 
 def spell_accumulator(initial_power: int) -> Callable:
-    """Return a closure that accumulates spell power."""
+    """Return a closure that accumulates power over time."""
     total_power = initial_power
 
     def accumulator(amount: int):
@@ -37,7 +37,7 @@ def enchantment_factory(enchantment_type: str) -> Callable:
 
 
 def memory_vault() -> dict[str, Callable]:
-    """Return store and recall functions sharing private memory."""
+    """Return store and recall functions using private closure storage."""
     storage: dict[str, object] = {}
 
     def store(key: str, value: object) -> None:
@@ -56,19 +56,8 @@ if __name__ == "__main__":
     print(f"Call 2: {counter()}")
     print(f"Call 3: {counter()}")
 
-    print("Testing spell accumulator...")
-    accumulator = spell_accumulator(10)
-    print(accumulator(5))
-    print(accumulator(8))
-
     print("Testing enchantment factory...")
     flaming = enchantment_factory("Flaming")
     frozen = enchantment_factory("Frozen")
     print(flaming("Sword"))
     print(frozen("Shield"))
-
-    print("Testing memory vault...")
-    vault = memory_vault()
-    vault["store"]("artifact", "Crystal Orb")
-    print(vault["recall"]("artifact"))
-    print(vault["recall"]("missing"))
